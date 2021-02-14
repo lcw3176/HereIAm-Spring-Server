@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.joebrooks.hereIam.mapper.LocationMapper">
+
+
+	<insert id="insertLocation" parameterType="String">
+		INSERT location(place, lat, lng, time, name)
+		VALUES(#{place}, #{lat}, #{lng}, UTC_TIMESTAMP(), #{name})
+	</insert>
+
+	<select id="selectByName" resultType="location">
+		SELECT *
+		FROM location
+		WHERE name = #{name}
+		ORDER BY time
+		DESC
+		LIMIT 1
+	</select>
+	
+	
+	<select id="selectLocations" parameterType="String" resultType="hashmap">
+		SELECT * 
+		FROM location 
+		WHERE name = #{name}
+		AND time
+			BETWEEN 
+				convert_tz(#{fromtime}, '-00:00', '-09:00') 
+				AND 
+				convert_tz(#{totime}, '-00:00', '-09:00')
+	</select>
+	
+
+</mapper>

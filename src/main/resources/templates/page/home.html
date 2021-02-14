@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/defaultLayout">
+
+
+<div layout:fragment="content">
+
+
+	<!-- Main Content -->
+	<div id="content">
+
+		<!-- Begin Page Content -->
+		<div class="container-fluid">
+
+			<div
+				class="d-sm-flex align-items-center justify-content-between mb-4">
+				<h1 class="h3 mb-0 text-gray-800">MyInfo</h1>
+				<input type="date" id="lookupArea" th:value="${requestTime}">
+			</div>
+
+			<p class="mb-4">내 방 정보</p>
+
+
+			<div class="row">
+
+				<!-- Earnings (Monthly) Card Example -->
+				<div class="col-xl-3 col-md-6 mb-4" th:if="${locationInfo != null}"
+					th:each="member : ${locationInfo}">
+					<div class="card border-left-primary shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1"
+										th:text="${member.name}"></div>
+									<div
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1"
+										th:text="${member.time}"></div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800"
+										th:text="${member.place}"></div>
+								</div>
+							</div>
+
+
+							<br> <a th:href="@{home(userName = ${member.name})}"
+								th:onclick="return setDate(this);"
+								class="btn btn-success btn-icon-split"> <span class="text">기록
+									보기</span>
+							</a>
+						</div>
+					</div>
+
+
+				</div>
+
+				<p class="mb-4" th:if="${locationInfo == null}">등록된 멤버가 없습니다.</p>
+
+			</div>
+
+
+			<div class="row">
+
+				<div class="col" th:if="${detailInfo != null}">
+
+					<!-- Default Card Example -->
+					<div class="card shadow mb-4">
+						<div class="card-header py-3">
+							<h6 class="m-0 font-weight-bold text-primary"
+								th:text="${logTarget} + '님 기록'"></h6>
+						</div>
+						<div class="card-body">
+
+							<div id="map" class="mb-4"
+								style="width: 80%; height: 500px; margin: 0 auto;"></div>
+
+						</div>
+					</div>
+
+				</div>
+
+				<script
+					th:src="@{https://dapi.kakao.com/v2/maps/sdk.js?appkey=bad65396cbc898fd3b09544f7e3891ee}"></script>
+
+				<script>
+					function setDate(aObject){
+						var date = document.getElementById("lookupArea").value;
+						
+						if(date == ""){
+							alert("조회할 시간대를 선택해 주세요.");
+							return false;
+						}
+						
+						aObject.href += "&time=" + date;	
+						return true;
+					}
+					
+					</script>
+				<script th:inline="javascript">
+					var info = [[${ detailInfo }]];
+
+					if(info != "" && info != undefined){
+						
+							
+						var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+							mapOption = {
+								center: new kakao.maps.LatLng(info[0].lat, info[0].lng), // 지도의 중심좌표
+								level: 3 // 지도의 확대 레벨
+							};
+		
+						var map = new kakao.maps.Map(mapContainer, mapOption);
+		
+						// 선을 구성하는 좌표 배열입니다. 이 좌표들을 이어서 선을 표시합니다
+						var linePath = [];
+		
+						for (var i = 0; i < info.length;i++) {
+							linePath.push(new kakao.maps.LatLng(info[i].lat, info[i].lng));
+		
+						}
+		
+							var polyline = new kakao.maps.Polyline({
+							path: linePath,
+							strokeWeight: 5,
+							strokeColor: '#FFAE00',
+							strokeOpacity: 0.7,
+							strokeStyle: 'solid'
+						});
+		
+						polyline.setMap(map);
+					}
+					</script>
+			</div>
+
+		</div>
+
+	</div>
+</div>
+
+</html>

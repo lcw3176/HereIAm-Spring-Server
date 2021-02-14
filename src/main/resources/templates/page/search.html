@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/defaultLayout">
+
+
+<div layout:fragment="content">
+
+	<div class="container-fluid">
+
+
+		<!-- Page Heading -->
+		<h1 class="h3 mb-2 text-gray-800">Search</h1>
+		<p class="mb-4">자신이 해당하는 방을 찾거나, 다른 공개된 방을 찾아 접속이 가능합니다.</p>
+
+		<!-- DataTales Example -->
+		<div class="card shadow mb-4">
+			<div class="card-header py-3">
+				<h6 class="m-0 font-weight-bold text-primary">검색</h6>
+			</div>
+
+
+			<div class="card-body">
+				<!-- Nested Row within Card Body -->
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="p-5">
+
+							<div th:if="${searchErr} == 'notValidate'"
+								class="alert alert-danger alert-dismissable text-left"
+								id="emailErr">
+								<button aria-hidden="true" data-dismiss="alert" class="close"
+									type="button">×</button>
+								입력한 정보가 유효하지 않습니다.
+							</div>
+
+							<div th:if="${searchErr} == 'belongtoRoom'"
+								class="alert alert-danger alert-dismissable text-left"
+								id="emailErr">
+								<button aria-hidden="true" data-dismiss="alert" class="close"
+									type="button">×</button>
+								소속된 방을 나간 후 진행해 주세요.
+							</div>
+
+
+							<div th:if="${searchErr} == 'fullCount'"
+								class="alert alert-danger alert-dismissable text-left"
+								id="emailErr">
+								<button aria-hidden="true" data-dismiss="alert" class="close"
+									type="button">×</button>
+								이미 정원이 다 찬 방입니다.
+							</div>
+
+
+							<form th:action="@{search}" th:object="${room}" method="post"
+								name="form" onsubmit="return roomNullCheck()">
+
+								<div class="form-group">
+									<h6>방 제목</h6>
+									<input type="text" class="form-control form-control-user"
+										id="exampleFirstName" placeholder="이름" th:field="*{name}"
+										name="name">
+								</div>
+
+								<hr>
+								<div class="form-group">
+									<h6>비밀번호</h6>
+									<input type="password" class="form-control form-control-user"
+										id="exampleInputPassword" placeholder="Password"
+										th:field="*{pw}" name="pw">
+								</div>
+
+
+								<hr>
+
+
+								<input type="submit" value="검색해보기"
+									class="btn btn-primary btn-user btn-block">
+								<hr>
+							</form>
+							<hr>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<script th:src="@{/js/recruit.js}"></script>
+	</div>
+</div>

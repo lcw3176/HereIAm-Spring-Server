@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.joebrooks.hereIam.mapper.RoomMapper">
+
+	<insert id="register" parameterType="room">
+		INSERT INTO room (name,
+		pw, members)
+		VALUES(#{name}, #{pw}, #{member})
+	</insert>
+
+	<delete id="delete" parameterType="room">
+		DELETE FROM room
+		WHERE name =
+		#{name}
+		AND members = #{member}
+	</delete>
+
+
+	<select id="selectRoomNameByMemberName" resultType="String">
+		SELECT name
+		FROM room
+		WHERE members = #{name}
+	</select>
+
+	<select id="selectMembersByRoomName" resultType="hashmap">
+		SELECT members
+		FROM room
+		WHERE name = #{name}
+	</select>
+
+
+	<select id="isMember" resultType="boolean">
+		SELECT IF(COUNT(*) = 1, 1, 0)
+		FROM room
+		WHERE name = #{roomName} and members LIKE
+		CONCAT('%',#{userName},'%')
+	</select>
+
+	<select id="isExist" parameterType="room" resultType="boolean">
+		SELECT 
+		IF(COUNT(*) >= 1, 1, 0)
+		FROM room
+		WHERE name = #{name}
+		AND pw = #{pw}
+	</select>
+	
+	<select id="hasRoom" parameterType="String" resultType="boolean">
+		SELECT 
+		IF(COUNT(*) >= 1, 1, 0)
+		FROM room
+		WHERE members = #{userName}
+	</select>
+	
+	<select id="isEnable" parameterType="String" resultType="boolean">
+		SELECT 
+		IF(COUNT(*) >= 4, 0, 1)
+		FROM room
+		WHERE name = #{roomName}
+	</select>
+	
+
+</mapper>

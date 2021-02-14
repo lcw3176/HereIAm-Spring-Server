@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/defaultLayout">
+
+<div layout:fragment="content">
+
+	<div class="container">
+
+		<!-- Outer Row -->
+		<div class="row justify-content-center">
+
+			<div class="col-xl-10 col-lg-12 col-md-9">
+
+				<div class="card o-hidden border-0 shadow-lg my-5">
+					<div class="card-body p-0">
+						<!-- Nested Row within Card Body -->
+
+						<div class="row">
+							<div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+							<div class="col-lg-6">
+								<div class="p-5">
+									<div class="text-center">
+										<h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+									</div>
+
+									<div th:if="${loginErr} == 'error'"
+										class="alert alert-danger alert-dismissable text-left"
+										id="emailErr">
+										<button aria-hidden="true" data-dismiss="alert" class="close"
+											type="button">×</button>
+										다시 확인해 주세요.
+									</div>
+
+									<form class="user" th:action="@{login}" th:object="${member}"
+										method="post" name="form" onsubmit="return loginNullCheck()">
+										<div class="form-group">
+											<input type="email" class="form-control form-control-user"
+												aria-describedby="emailHelp" name="email"
+												placeholder="Enter Email Address..." th:field="*{email}">
+										</div>
+										<div class="form-group">
+											<input type="password" class="form-control form-control-user"
+												placeholder="Password" name="pw" th:field="*{pw}">
+										</div>
+										<input class="btn btn-primary btn-user btn-block"
+											type="submit" value="login">
+										<hr>
+									</form>
+									<hr>
+									<div class="text-center">
+										<a class="small" href="join">Create an Account!</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+	<script th:src="@{/js/login.js}"></script>
+</div>
+</html>

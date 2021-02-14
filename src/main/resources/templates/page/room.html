@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/defaultLayout">
+
+
+<div layout:fragment="content">
+
+	<script>
+		if (window.performance) {
+			if (performance.navigation.type == 1) {
+				location.href = "search";
+			}
+		}
+	</script>
+	<div class="container-fluid">
+
+		<div class="row" id="addContent">
+
+			<div
+				class="d-sm-flex align-items-center justify-content-between mb-4">
+				<h1 class="h3 mb-0 text-gray-800" id="roomName"
+					th:text="*{roomName}"></h1>
+			</div>
+
+			<div id="map" class="mb-4"
+				style="width: 100%; height: 350px; margin: 0 auto;"></div>
+
+		</div>
+
+	</div>
+	<script th:src="@{/js/socket.js}"></script>
+	<script
+		th:src="@{https://dapi.kakao.com/v2/maps/sdk.js?appkey=bad65396cbc898fd3b09544f7e3891ee&libraries=services,clusterer}"></script>
+	<script th:src="@{/js/kakao.js}"></script>
+
+
+</div>

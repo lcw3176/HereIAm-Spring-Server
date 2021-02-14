@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/defaultLayout">
+
+<div layout:fragment="content">
+
+	<body class="bg-gradient-primary">
+
+		<div class="container">
+
+			<div class="card o-hidden border-0 shadow-lg my-5">
+				<div class="card-body p-0">
+					<!-- Nested Row within Card Body -->
+					<div class="row">
+						<div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+						<div class="col-lg-7">
+							<div class="p-5">
+								<div class="text-center">
+									<h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+								</div>
+
+								<div th:if="${registerErr} == 'error'"
+									class="alert alert-danger alert-dismissable text-left"
+									id="emailErr">
+									<button aria-hidden="true" data-dismiss="alert" class="close"
+										type="button">×</button>
+									이미 존재하는 닉네임 입니다.
+								</div>
+								
+								<form class="user" th:action="@{join}" th:object="${member}"
+									method="post" onsubmit="return registerNullCheck()" name="form">
+									<div class="form-group">
+										<input type="text" class="form-control form-control-user"
+											name="name" id="exampleFirstName" placeholder="이름"
+											th:field="*{name}">
+									</div>
+									<div class="form-group">
+										<input type="email" class="form-control form-control-user"
+											name="email" id="exampleInputEmail"
+											placeholder="Email Address" th:field="*{email}">
+									</div>
+									<div class="form-group row">
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<input type="password" class="form-control form-control-user"
+												id="exampleInputPassword" name="password"
+												placeholder="Password">
+										</div>
+										<div class="col-sm-6">
+											<input type="password" class="form-control form-control-user"
+												name="repeatpw" id="exampleRepeatPassword"
+												placeholder="Repeat Password" th:field="*{pw}">
+										</div>
+									</div>
+									<input type="submit" value="Register Account"
+										class="btn btn-primary btn-user btn-block">
+									<hr>
+								</form>
+								<hr>
+								<div class="text-center">
+									<a class="small" th:href="@{login}">Already have an
+										account? Login!</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</body>
+
+	<script th:src="@{/js/register.js}"></script>
+</div>
+</html>
