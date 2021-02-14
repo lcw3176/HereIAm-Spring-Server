@@ -31,7 +31,7 @@ public class MRoomController {
 	private IRoomService roomService;
 	private ILocationService locationService;
 
-	@GetMapping("/getmembers/{roomName}/{userName}")
+	@GetMapping("/members/{roomName}/{userName}")
 	public JSONObject MembersData(@PathVariable("roomName") String roomName,
 			@PathVariable("userName") String userName) {
 		JSONObject json = new JSONObject();

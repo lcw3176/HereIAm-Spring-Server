@@ -23,7 +23,7 @@ public class MMembersController {
 	private ILocationService locationService;
 	private IMemberService memberService;
 
-	@GetMapping("/getmemberlocation/{memberName}")
+	@GetMapping("/location/{memberName}")
 	public JSONObject membersLocationData(@PathVariable("memberName") String memberName) {
 		JSONObject json = new JSONObject();
 
@@ -36,7 +36,7 @@ public class MMembersController {
 		return json;
 	}
 
-	@GetMapping("/getmyinfomation/{email}")
+	@GetMapping("/myinfo/{email}")
 	public JSONObject requestMembers(@PathVariable("email") String email) {
 		JSONObject json = new JSONObject();
 
