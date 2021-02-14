@@ -75,7 +75,7 @@ create table location (
 |result에 따라 에러 메세지 생성|GET|/search|result|
 |암호화 후 room으로 redirect|POST|/search|room 객체|
 |에러 페이지|GET|/error||
-<br>
+
 ### MOBILE
 |Task|Method|Path|Parameter|
 |---------|-----|--------|----|
