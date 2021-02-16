@@ -4,9 +4,8 @@
 * Java, Spring Boot, WebSocket, JWT
 * thymeleaf, html, JavaScript, css, Bootstrap
 * MySQL, mybatis
-* lombok
+* lombok, kakao 지도 api
 * WebSocket을 위한 https 적용(발급처: https://www.sslforfree.com)
-* kakao 지도 api 사용
 
 ## 데이터베이스
 * location 테이블
@@ -49,12 +48,22 @@ create table location (
 </pre>
 
 ## 구현 기능
-1. 로그인, 회원가입(SHA-256 암호화)
-2. JWT을 통한 인증 서비스(쿠키 이용, 제한 시간 존재)
-3. 위치 추적을 위한 방 만들기, 입장하기
-4. 웹에서 실시간 위치 추적, 조회를 위한 WebSocket 사용
-5. 홈에서 내 방 멤버들 시간별 위치 기록 확인 가능
-6. 어플에서 데이터를 받아오기 위한 Mobile 전용 REST API
+* 로그인, 회원가입(SHA-256 암호화)
+* JWT을 통한 인증 서비스(쿠키 이용, 제한 시간 존재)
+* 위치 추적을 위한 방 만들기, 입장하기
+* 웹에서 실시간 위치 추적, 조회를 위한 WebSocket 사용
+* 홈에서 내 방 멤버들 시간별 위치 기록 확인 가능
+* 어플에서 데이터를 받아오기 위한 Mobile 전용 REST API
+
+## 한계
+* 모바일 환경 타겟으로 만들었으나, 실제 사용시 불편함
+    - 브라우저를 계속 띄워놔야해서 접속 유지 어려움
+    - 포커즈가 벗어나거나, 폰 sleep시 추적 힘듬 
+
+## 개선
+* 어플로 만들어서 위치 기록을 지속시킴
+* 웹단에서는 가입과 조회를, 모바일에서는 기록을 주력으로 함
+
 
 ## URL 구조
 ### WEB
@@ -87,3 +96,30 @@ create table location (
 |방 멤버들 정보 조회|GET|/m/room/members/{roomName}/{userName}||
 |방 입장|POST|/m/room/checkin|roomName, userName, pw||
 |방 퇴장|DELETE|/m/room/checkout/{roomName}/{userName}||
+
+## 작동 사진
+#### 메인 홈, 기록 열람
+<div>
+<img src="https://user-images.githubusercontent.com/59993347/108018113-211f5080-705a-11eb-9102-d9fd90cc959a.jpg" width=250>
+
+<img src="https://user-images.githubusercontent.com/59993347/108018116-22507d80-705a-11eb-8701-68c37451e49b.jpg" width=250>
+
+</div>
+
+#### 방 만들기, 방 검색, 실시간 멤버 표시
+<div>
+<img src="https://user-images.githubusercontent.com/59993347/108018120-241a4100-705a-11eb-98ad-f42a8b765ccb.jpg" width=250>
+
+<img src="https://user-images.githubusercontent.com/59993347/108018123-24b2d780-705a-11eb-8747-069ad851ac0d.jpg" width=250>
+
+<img src="https://user-images.githubusercontent.com/59993347/108018124-254b6e00-705a-11eb-999d-f838cb1f9e46.jpg" width=250>
+
+</div>
+
+#### 로그인, 회원 가입
+<div>
+<img src="https://user-images.githubusercontent.com/59993347/108018128-27153180-705a-11eb-915c-42c036072f32.jpg" width=250>
+
+<img src="https://user-images.githubusercontent.com/59993347/108018129-27adc800-705a-11eb-9196-c104ef89d4dc.jpg" width=250>
+
+</div>
