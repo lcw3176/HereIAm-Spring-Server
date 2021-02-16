@@ -61,7 +61,7 @@ create table location (
     - 포커즈가 벗어나거나, 폰 sleep시 추적 힘듬 
 
 ## 개선
-* 어플로 만들어서 위치 기록을 지속시킴
+* 어플로 만들어서 위치 기록을 지속시킴 ([HereIAm_App](https://github.com/lcw3176/HereIAm-Xamarin-Client))
 * 웹단에서는 가입과 조회를, 모바일에서는 기록을 주력으로 함
 
 
